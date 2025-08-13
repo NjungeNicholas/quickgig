@@ -65,4 +65,8 @@ class TaskerProfile(models.Model):
     skills = models.ManyToManyField(Service, blank=True)
 
     def __str__(self):
-        return f"Profile of {self.user.username}"
+        return f"Profile of {self.user.email}"
+    
+    class Meta:
+        verbose_name = 'Tasker'
+        verbose_name_plural = 'Taskers'
