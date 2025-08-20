@@ -16,7 +16,7 @@ const Navbar = () => {
 
     return (
         <>
-            <nav className="flex justify-between py-[1.5rem] px-[1.5rem] shadow-md">
+            <nav className="flex justify-between py-[1.5rem] px-[1.5rem] shadow-md sticky top-0 bg-white z-50">
                 {/* Mobile menu button */}
                 <button className="md:hidden" onClick={() => setIsMenuOpen(!isMenuOpen)}>
                     {isMenuOpen ? <X /> : <Menu />}
