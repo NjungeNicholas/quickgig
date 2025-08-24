@@ -1,3 +1,21 @@
-from django.shortcuts import render
+from rest_framework import generics, permissions
+from .models import Service, Category
+from .serializers import CategorySerializer, ServiceSerializer
 
-# Create your views here.
+class CategoryListView(generics.ListAPIView):
+    queryset = Category.objects.all()
+    serializer_class = CategorySerializer
+    # Allowing only admins to write
+    def get_permissions(self):
+        if self.request.method in permissions.SAFE_METHODS:
+            return [permissions.IsAdminUser()]
+        return [permissions.AllowAny()]
+
+class ServiceListView(generics.ListAPIView):
+    queryset = Service.objects.all()
+    serializer_class = ServiceSerializer
+    # Allowing only admins to write
+    def get_permissions(self):
+        if self.request.method in permissions.SAFE_METHODS:
+            return [permissions.IsAdminUser()]
+        return [permissions.AllowAny()]
