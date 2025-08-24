@@ -75,6 +75,11 @@ class Booking(models.Model):
     def end_time(self):
         return self.availability_slot.end_time
     
+    def clean(self):
+        """Ensure that the selected task is one of the tasker's skills"""
+        if not self.tasker.taskerprofile.skills.filter(id=self.task.id).exists():
+            raise ValidationError(f"{self.tasker} does not offer the service {self.task}.")
+    
 
 class BookingService:
     """ services to handle bookings"""
