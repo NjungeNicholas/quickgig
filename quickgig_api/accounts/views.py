@@ -151,8 +151,7 @@ class UserViewSet(viewsets.ModelViewSet):
         
         elif request.method in ['PUT', 'PATCH']:
             partial = request.method == 'PATCH'
-            serializer = UserUpdateSerializer(user, data=request.data, 
-                                            partial=partial, context={'request': request})
+            serializer = UserUpdateSerializer(user, data=request.data, partial=partial, context={'request': request})
             serializer.is_valid(raise_exception=True)
             serializer.save()
             
