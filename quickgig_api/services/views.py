@@ -8,8 +8,8 @@ class CategoryListView(generics.ListAPIView):
     # Allowing only admins to write
     def get_permissions(self):
         if self.request.method in permissions.SAFE_METHODS:
-            return [permissions.IsAdminUser()]
-        return [permissions.AllowAny()]
+            return [permissions.AllowAny()]
+        return [permissions.IsAdminUser()]
 
 class ServiceListView(generics.ListAPIView):
     queryset = Service.objects.all()
@@ -17,5 +17,5 @@ class ServiceListView(generics.ListAPIView):
     # Allowing only admins to write
     def get_permissions(self):
         if self.request.method in permissions.SAFE_METHODS:
-            return [permissions.IsAdminUser()]
-        return [permissions.AllowAny()]
+            return [permissions.AllowAny()]
+        return [permissions.IsAdminUser()]

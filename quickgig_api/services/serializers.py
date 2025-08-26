@@ -7,7 +7,7 @@ class CategorySerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 class ServiceSerializer(serializers.ModelSerializer):
-    category = serializers.StringRelatedField(many = True) # to show category name instead of id
+    category = serializers.StringRelatedField() # to show category name instead of id
     class Meta:
         model = Service
-        fields = '__all__'
+        fields = ['id', 'name', 'description', 'category']
