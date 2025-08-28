@@ -23,6 +23,8 @@ Availability Slots
 ------------------
 - GET    /api/tasks/slots/
     List all availability slots.
+- GET   /api/tasks/slots/?tasker=<tasker_id>
+    List all availability slots for a specific tasker.
 - POST   /api/tasks/slots/
     Create a new availability slot for the authenticated tasker.
 - GET    /api/tasks/slots/<int:pk>/

@@ -13,6 +13,15 @@ class AvailabilitySlotListCreateView(generics.ListCreateAPIView):
     serializer_class = AvailabilitySlotSerializer
     permission_classes = [IsOwnerOrReadOnly]
 
+    def get_queryset(self):
+        queryset = AvailabilitySlot.objects.all()
+        tasker_id = self.request.query_params.get("tasker")
+
+        if tasker_id:
+            queryset = queryset.filter(tasker_id=tasker_id)
+
+        return queryset
+    
     def create(self, request, *args, **kwargs):
         start_time = request.data.get('start_time')
         end_time = request.data.get('end_time')
