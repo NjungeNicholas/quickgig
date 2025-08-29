@@ -8,7 +8,7 @@ const Footer = () => {
         { label: "Terms of Service", url: "/terms" },
     ];
     return (
-        <footer className="bg-gray-800 font-body text-white py-4 ">
+        <footer className="bg-gray-800 font-body text-white py-4 mt-6 fixed bottom-0 w-full">
             <div className="flex flex-wrap justify-between items-center mx-auto container">
                 <p>&copy; {new Date().getFullYear()} QuickGig. All rights reserved.</p>
                 <ul className="flex  justify-center text-center space-x-4 mt-2">
