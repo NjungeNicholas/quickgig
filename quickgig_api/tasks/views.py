@@ -6,6 +6,8 @@ from accounts.permissions import (
     IsOwnerOrReadOnly,
     IsTaskerOrClient,
 )
+from rest_framework.decorators import api_view, permission_classes
+
 
 class AvailabilitySlotListCreateView(generics.ListCreateAPIView):
     """List all slots or creates a new availability slot"""
@@ -151,3 +153,20 @@ class BookingDetailView(generics.RetrieveUpdateDestroyAPIView):
         serializer = self.get_serializer(cancelled)
         return Response(serializer.data, status=status.HTTP_200_OK)
 
+# Client Bookings
+@api_view(['GET'])
+@permission_classes([permissions.IsAuthenticated])
+def client_bookings(request):
+    """Get bookings where user is the client"""
+    bookings = Booking.objects.filter(client=request.user)
+    serializer = BookingSerializer(bookings, many=True)
+    return Response(serializer.data, status=status.HTTP_200_OK)
+
+# Tasker Bookings
+@api_view(['GET'])
+@permission_classes([permissions.IsAuthenticated])
+def tasker_bookings(request):
+    """Get bookings where user is the tasker"""
+    bookings = Booking.objects.filter(tasker=request.user)
+    serializer = BookingSerializer(bookings, many=True)
+    return Response(serializer.data, status=status.HTTP_200_OK)

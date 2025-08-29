@@ -1,7 +1,7 @@
 from django.urls import path
 from .views import (
     AvailabilitySlotListCreateView, AvailabilitySlotDetailView,
-    BookingListCreateView, BookingDetailView, DailyAvailabilitySlotView
+    BookingListCreateView, BookingDetailView, DailyAvailabilitySlotView,client_bookings, tasker_bookings
 )
 
 urlpatterns = [
@@ -13,6 +13,10 @@ urlpatterns = [
     # Bookings
     path("bookings/", BookingListCreateView.as_view(), name="booking-list"),
     path("bookings/<int:pk>/", BookingDetailView.as_view(), name="booking-detail"),
+    # Client Bookings
+    path("bookings/client/", client_bookings, name="client-bookings"),
+    # Tasker Bookings
+    path("bookings/tasker/", tasker_bookings, name="tasker-bookings"),
 ]
 
 """
@@ -52,6 +56,10 @@ Bookings
     Fully update the status of a booking (tasker or client).
 - DELETE /api/tasks/bookings/<int:pk>/
     Cancel a booking (only clients can cancel).
+- GET    /api/tasks/bookings/client/
+    Get user's bookings as client (optional).
+- GET    /api/tasks/bookings/tasker/
+    Get user's bookings as tasker (optional).
 
 Notes
 -----
