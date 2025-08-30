@@ -4,7 +4,7 @@ import HowItWorks from "../components/homepage/HowItWorks";
 
 function Home() {
   return (
-    <div>
+    <div className="mb-20">
       <HeroSection />
       <CategoryPreview />
       <HowItWorks />

@@ -18,7 +18,7 @@ class AvailabilitySlot(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
 
     class Meta:
-        unique_together = ('tasker', 'date', 'start_time', 'end_time')
+        unique_together = ('start_time', 'end_time')
         ordering = ['date', 'start_time']
 
     def clean(self):
@@ -145,6 +145,17 @@ class BookingService:
         except Booking.DoesNotExist:
             raise ValidationError("Booking not found")
         
+    @staticmethod
+    @transaction.atomic
+    def update_booking_status(booking, status):
+        """Update the status of a booking"""
+        try:
+            booking.status = status
+            booking.save()
+            return booking
+        except Exception as e:
+            raise ValidationError(f"Error updating booking status: {e}")
+
     @staticmethod
     def get_tasker_bookings(tasker):
         """Get all bookings for a specific tasker"""

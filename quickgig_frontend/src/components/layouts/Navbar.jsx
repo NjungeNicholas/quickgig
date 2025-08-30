@@ -1,18 +1,31 @@
-import { Link, Outlet } from 'react-router-dom';
+import { Link, Outlet, useNavigate } from 'react-router-dom';
 import { Menu, X } from 'lucide-react';
 import { useState } from 'react';
 import Button from '../common/Button';
-
+import useAuthStore from "../../stores/authstore";
 
 const Navbar = () => {
+    const user = useAuthStore((state) => state.user);
+    const logout = useAuthStore((state) => state.logout);
+    const navigate = useNavigate();
+    const [isMenuOpen, setIsMenuOpen] = useState(false);
+
+    const handleLogout = async () => {
+        await logout();
+        navigate("/");
+    };
+
+    const handleLogin = () => {
+        navigate("/login");
+    };
+
     const NavLinks = [
         { name: "Home", path: "/" },
         { name: "Services", path: "/services" },
         { name: "About", path: "/about" },
         { name: "Contact", path: "/contact" },
+        ...(user ? [{name: "Dashboard", path: "/dashboard"}] : []),
     ];
-    const [loggedIn, setLoggedIn] = useState("Sign In");
-    const [isMenuOpen, setIsMenuOpen] = useState(false);
 
     return (
         <>
@@ -32,9 +45,17 @@ const Navbar = () => {
                         </li>
                     ))}
                 </ul>
-                <Button className="hidden md:block" variant={loggedIn === "Sign In" ? "primary" : "secondary"} onClick={() => setLoggedIn(loggedIn === "Sign In" ? "Sign Out" : "Sign In")}>
-                    {loggedIn}
-                </Button>
+                {user ? (
+                    <>
+                        <Button className="hidden md:block" variant="secondary" onClick={handleLogout}>
+                            Sign Out
+                        </Button>
+                    </>
+                ) : (
+                    <Button className="hidden md:block" variant="primary" onClick={handleLogin}>
+                        Sign In
+                    </Button>
+                )}
 
                 {/* Mobile menu */}
                 <div className={`fixed top-0 left-0 h-full w-2/3 bg-white shadow-lg z-10 transition-transform duration-300 ease-in ${isMenuOpen ? 'translate-x-0' : '-translate-x-full'} md:hidden`}>
