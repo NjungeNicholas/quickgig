@@ -12,6 +12,7 @@ const Navbar = () => {
 
     const handleLogout = async () => {
         await logout();
+        navigate("/");
     };
 
     const handleLogin = () => {
