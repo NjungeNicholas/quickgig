@@ -68,7 +68,7 @@ export default function Dashboard() {
         <ul className="space-y-4">
           {tasks.map((task) => (
             <li key={task.id} className="p-4 border rounded shadow font-body">
-              <p><strong>Tasker:</strong> {task.tasker_name}</p>
+              {mode === "client" ? <p><strong>Tasker:</strong> {task.tasker_name}</p> : <p><strong>Client:</strong> {task.client_name}</p>}
               <p><strong>Service:</strong> {task.task_name}</p>
               <p><strong>Time:</strong> {task.slot_detail.date} | {task.slot_detail.start_time} - {task.slot_detail.end_time}</p>
               <p><strong>Status:</strong> {task.status}</p>
