@@ -3,7 +3,7 @@ from .models import AvailabilitySlot, Booking
 
 @admin.register(AvailabilitySlot)
 class AvailabilitySlotAdmin(admin.ModelAdmin):
-    list_display = ('tasker', 'date', 'start_time', 'end_time', 'is_booked')
+    list_display = ('tasker', 'date', 'start_time', 'end_time', 'is_booked', 'id')
     list_filter = ('date', 'is_booked', 'tasker')
     search_fields = ('tasker__username', 'tasker__email')
     ordering = ('date', 'start_time')
